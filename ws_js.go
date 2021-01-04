@@ -277,7 +277,7 @@ func dial(ctx context.Context, url string, opts *DialOptions) (*Conn, *http.Resp
 
 	select {
 	case <-ctx.Done():
-		c.Close(StatusPolicyViolation, "dial timed out")
+		go c.Close(StatusPolicyViolation, "dial timed out")
 		return nil, nil, ctx.Err()
 	case <-opench:
 		return c, &http.Response{
